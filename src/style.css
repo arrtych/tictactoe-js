@@ -52,7 +52,7 @@ ol, ul {
   width: 2em;
   background-color: bisque;
 }
-#movie-list li.active {
+#move-list li.active {
   background: bisque;
   padding: 10px 15px;
 }
