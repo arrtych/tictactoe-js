@@ -8,9 +8,9 @@ ol, ul {
 }
 
 .board-row:after {
-  clear: both;
-  content: "";
-  display: table;
+  /*clear: both;*/
+  /*content: "";*/
+  /*display: table;*/
 }
 
 .status {
@@ -47,4 +47,12 @@ ol, ul {
 
 .game-info {
   margin-left: 20px;
+}
+.list-style{
+  width: 2em;
+  background-color: bisque;
+}
+#movie-list li.active {
+  background: bisque;
+  padding: 10px 15px;
 }

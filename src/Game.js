@@ -11,16 +11,29 @@ class Game extends React.Component {
             ],
             stepNumber: 0,
             xIsNext: true,
-            location: ["","","","","","","","",""]
+            gameEnd: false,
+            location: []
         };
     }
 
     handleClick(i) {
-        // console.log("handleclick");
+        console.log("handleclick ",i);
+        // document.querySelector('#movie-list > li').setAttribute('class', new_class);
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
-        if (calculateWinner(squares) || squares[i]) {
+        let location = this.generateLocation(i);
+        location = this.showLocation(i, location);
+        const isWinner = calculateWinner(squares);
+        this.setState({
+            location
+        });
+        if(isWinner) {
+            this.setState({
+                gameEnd: true
+            });
+        }
+        if (isWinner || squares[i]) {
             return;
         }
         squares[i] = this.state.xIsNext ? "X" : "O";
@@ -33,59 +46,77 @@ class Game extends React.Component {
             stepNumber: history.length,
             xIsNext: !this.state.xIsNext
         });
-        this.showLocation(i);
+        // this.checkSquare(i);
+
+
+
 
     }
 
+    checkSquare(i){
+        var element  = document.getElementById(`list-item-${i}`);
+        var childs = document.querySelectorAll("#game-board > .square");
+        console.log("childs", childs);
+        if(element ) element.className += " list-style";
+        console.log(element);
+    }
+
     jumpTo(step) {
+        let newState = {};
+        if(step === 1){
+            newState = {
+               location: [],
+               history: []
+            };
+        }
         this.setState({
+            ...newState,
             stepNumber: step,
             xIsNext: (step % 2) === 0
         });
     }
-
-    showLocation(index){
-        var current = ""
-        if(index === 0) {
-            current = "1,1";
-            this.state.location[0] = current;
-            // console.log("index:",current);
+    generateLocation(index) {
+        let labels = [
+            "1,1", "1,2", "1,3", "2,1", "2,2", "2,3", "3,1", "3,2", "3,3"
+        ];
+        const { location } = this.state;
+        for(let i = 0; i < labels.length; i++) {
+            if(index === i) {
+                const label = labels[i];
+                const hasLocation = !!location.filter((val) => val.label === label).length;
+                if (!hasLocation) {
+                    let current = {
+                        index,
+                        label: null,
+                        clicks: 0,
+                        active: false,
+                        className: '',
+                    };
+                    current.label = label;
+                    location.push(current);
+                }
+            }
         }
-        if(index === 1) {
-            current = "1,2";
-            this.state.location[1] = current;
-        }
-        if(index === 2) {
-            current = "1,3";
-            this.state.location[2] = current;
-        }
-        if(index === 3) {
-            current = "2,1";
-            this.state.location[3] = current;
-        }
-        if(index === 4) {
-            current = "2,2";
-            this.state.location[4] = current;
-        }
-        if(index === 5) {
-            current = "2,3";
-            this.state.location[5] = current;
-        }
-        if(index === 6) {
-            current = "3,1";
-            this.state.location[6] = current;
-        }
-        if(index === 7) {
-            current = "3,2";
-            this.state.location[7] = current;
-        }
-        if(index === 8) {
-            current = "3,3";
-            this.state.location[8] = current;
-        }
-        console.log("Location:", this.state.location);
-
-
+        console.log("location", location);
+        return location;
+    }
+    showLocation(index, location){
+        const { gameEnd } = this.state;
+        const newState = location.map((v) => {
+            let location = {
+                ...v,
+                clicks: v.clicks + 1,
+                active: false
+            };
+            if(!gameEnd && location.clicks > 1) {
+                if (index === v.index) {
+                    location.active = true;
+                }
+            }
+            return location;
+        });
+        console.log("this.state.location", newState);
+        return newState;
     }
 
 
@@ -94,7 +125,8 @@ class Game extends React.Component {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
         const winner = calculateWinner(current.squares);
-        console.log("current: ",this.state.history);
+        console.log("current: ",current);
+
         const moves = history.map((step, move) => {
             const desc = move ?
                 'Go to move #' + move :
@@ -106,25 +138,14 @@ class Game extends React.Component {
 
             );
         });
-        const list = this.state.location.map((number) =>
-            <li key={number.toString()}>
-                {number}
-            </li>
-        );
-        // const location = this.state.location.map((value) => {
-        //   return (
-        //       <li>{value}</li>
-        //   )
-        // });
-        // for(var i=0; i<this.state.location.length;i++){
-        //
-        // <ul>
-        // <li>{this.state.location[i]}</li>
-        // </ul>
-        //
-        // }
-        // {/*<li key={value.toString()}>{value}</li>*/}
-        //   {/*);*/}
+        const list = this.state.location.map((element , index) => {
+            let classes = `movie-list-item-st-${index}`;
+            if(element.active) {
+                classes += ' active';
+            }
+            return <li className={classes} key={element.label}>{element.label}</li>;
+        });
+
 
 
 
@@ -137,7 +158,7 @@ class Game extends React.Component {
 
         return (
             <div className="game">
-                <div className="game-board">
+                <div id="game-board">
                     <Board
                         squares={current.squares}
                         onClick={i => this.handleClick(i)}
@@ -146,14 +167,12 @@ class Game extends React.Component {
                 <div className="game-info">
                     <div>{status}</div>
                     <ol>{moves}</ol>
-                    {/*<div>*/}
-                    {/*<ul>*/}
-                    {/*{this.state.location.map((item ) => (*/}
-                    {/*<li key={item}>{item}</li>*/}
-                    {/*))}*/}
-                    {/*</ul>*/}
-                    {/*</div>*/}
-                    {/*<NumberList numbers={this.state.location} />*/}
+                    <div id="movie-list">
+                        <span>Movie list</span>
+                        <ul>{list}</ul>
+                    </div>
+
+
                 </div>
             </div>
         );
@@ -172,6 +191,7 @@ function calculateWinner(squares) {
     ];
     for (let i = 0; i < lines.length; i++) {
         const [a, b, c] = lines[i];
+        console.log("win lines",lines[i]);
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
             return squares[a];
         }
