@@ -10,6 +10,7 @@ class Board extends React.Component {
                 key={i}
                 // className={`square-${key1}`}
                 onClick={() => this.props.onClick(i)}
+                highlight={this.props.winnerLine.includes(i)}
             />
         );
     }

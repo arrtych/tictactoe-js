@@ -12,19 +12,19 @@ class Game extends React.Component {
             stepNumber: 0,
             xIsNext: true,
             gameEnd: false,
-            location: []
+            location: [],
+            order: 0
         };
     }
 
     handleClick(i) {
         console.log("handleclick ",i);
-        // document.querySelector('#movie-list > li').setAttribute('class', new_class);
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
         let location = this.generateLocation(i);
         location = this.showLocation(i, location);
-        const isWinner = calculateWinner(squares);
+        const isWinner = calculateWinner(squares,this.state.gameEnd);
         this.setState({
             location
         });
@@ -46,20 +46,9 @@ class Game extends React.Component {
             stepNumber: history.length,
             xIsNext: !this.state.xIsNext
         });
-        // this.checkSquare(i);
-
-
-
 
     }
 
-    checkSquare(i){
-        var element  = document.getElementById(`list-item-${i}`);
-        var childs = document.querySelectorAll("#game-board > .square");
-        console.log("childs", childs);
-        if(element ) element.className += " list-style";
-        console.log(element);
-    }
 
     jumpTo(step) {
         let newState = {};
@@ -116,7 +105,15 @@ class Game extends React.Component {
             return location;
         });
         console.log("this.state.location", newState);
+        console.log("game-end",gameEnd);
         return newState;
+    }
+
+    changeOrder(){
+        const o = this.state.order;
+        this.setState({
+            order: ~o,
+        });
     }
 
 
@@ -124,7 +121,16 @@ class Game extends React.Component {
     render() {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
-        const winner = calculateWinner(current.squares);
+        const currentCell = history[history.length - 1];
+        const winnerInfo = calculateWinner(currentCell.squares,this.state.gameEnd);
+
+        const winner = winnerInfo ? winnerInfo.winner : null;
+        const winnerLine = winnerInfo ? winnerInfo.line : [];
+        console.log("winnerInfo", winnerInfo);
+        // if(winnerInfo.winner ==="Draw") {
+        //     document.getElementById("move-list").write("Draw");
+        // }
+        const order = this.state.order;
         console.log("current: ",current);
 
         const moves = history.map((step, move) => {
@@ -162,12 +168,17 @@ class Game extends React.Component {
                     <Board
                         squares={current.squares}
                         onClick={i => this.handleClick(i)}
+                        winnerLine={winnerLine}
                     />
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
-                    <ol>{moves}</ol>
                     <div id="move-list">
+
+                        <button onClick={() => this.changeOrder()}>Change order</button>
+                        {(() => {
+                            return order === 0 ? <ol>{moves}</ol> : <ol>{moves.reverse()}</ol>
+                        })()}
                         <span>Move list</span>
                         <ul>{list}</ul>
                     </div>
@@ -178,7 +189,9 @@ class Game extends React.Component {
         );
     }
 }
-function calculateWinner(squares) {
+function calculateWinner(squares,gameStatus) {
+
+    var gameEnd = gameStatus;
     const lines = [
         [0, 1, 2],
         [3, 4, 5],
@@ -191,9 +204,26 @@ function calculateWinner(squares) {
     ];
     for (let i = 0; i < lines.length; i++) {
         const [a, b, c] = lines[i];
-        console.log("win lines",lines[i]);
+        // console.log("gEnd", gameEnd);
+
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-            return squares[a];
+            return {
+                winner: squares[a],
+                line: [a, b, c]
+            };
+        }
+        else {
+            const busyCells= squares.map((element,index) =>{
+                console.log("sqrs el", element);
+                console.log("gEnd-",gameEnd);
+                if( element != null &&  gameEnd===false){
+                    console.log("Draw");
+                    return {
+                        winner: "Draw",
+                        gameEnd: true
+                    };
+                }
+            });
         }
     }
     return null;
