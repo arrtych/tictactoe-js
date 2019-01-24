@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2aed69a8-6718-4715-8eb7-3a5d54e7e2ec" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Board.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Square.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Square.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -31,8 +29,8 @@
       <file leaf-file-name="Board.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Board.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="12" column="44" lean-forward="true" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
+            <state relative-caret-position="220">
+              <caret line="12" column="44" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -43,8 +41,8 @@
       <file leaf-file-name="Game.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="219" column="20" lean-forward="true" selection-start-line="219" selection-start-column="20" selection-end-line="219" selection-end-column="31" />
+            <state relative-caret-position="220">
+              <caret line="23" column="16" lean-forward="true" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -72,7 +70,7 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
+            <state relative-caret-position="180">
               <caret line="12" selection-start-line="12" selection-end-line="12" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
@@ -113,8 +111,8 @@
       <find>gameEnd</find>
       <find>end</find>
       <find>map</find>
-      <find>calculateWinner</find>
       <find>line</find>
+      <find>calculateWinner</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -240,12 +238,13 @@
       <workItem from="1548090307688" duration="2086000" />
       <workItem from="1548173204677" duration="1128000" />
       <workItem from="1548180789753" duration="1649000" />
-      <workItem from="1548261921398" duration="9266000" />
+      <workItem from="1548261921398" duration="10194000" />
+      <workItem from="1548345517545" duration="6247000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63844000" />
+    <option name="totallyTimeSpent" value="71019000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -260,13 +259,13 @@
     <frame x="-7" y="-7" width="1550" height="840" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6970339" visible="true" weight="0.15771812" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6939759" visible="true" weight="0.15771812" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32954547" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.3865772" side_tool="true" weight="0.41051137" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32954547" />
-      <window_info id="npm" order="1" sideWeight="0.3029661" side_tool="true" visible="true" weight="0.15771812" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6134228" visible="true" weight="0.41051137" />
+      <window_info id="npm" order="1" sideWeight="0.3060241" side_tool="true" visible="true" weight="0.15771812" />
       <window_info active="true" anchor="right" id="Structure" order="3" sideWeight="0.60645163" side_tool="true" visible="true" weight="0.2" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.24289773" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -292,6 +291,16 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/Game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4380">
+          <caret line="219" column="20" lean-forward="true" selection-start-line="219" selection-start-column="20" selection-end-line="219" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Square.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -676,7 +685,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
+        <state relative-caret-position="180">
           <caret line="12" selection-start-line="12" selection-end-line="12" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
@@ -686,8 +695,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Board.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="12" column="44" lean-forward="true" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
+        <state relative-caret-position="220">
+          <caret line="12" column="44" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -703,8 +712,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="219" column="20" lean-forward="true" selection-start-line="219" selection-start-column="20" selection-end-line="219" selection-end-column="31" />
+        <state relative-caret-position="220">
+          <caret line="23" column="16" lean-forward="true" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>

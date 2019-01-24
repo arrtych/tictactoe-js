@@ -3,7 +3,11 @@ import Board from "./Board";
 class Game extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
+        this.setInitialState();
+    }
+
+    setInitialState = (initial = true) => {
+        const state = {
             history: [
                 {
                     squares: Array(9).fill(null)
@@ -15,7 +19,12 @@ class Game extends React.Component {
             location: [],
             order: 0
         };
-    }
+        if(initial) {
+            this.state = state;
+        } else {
+            this.setState(state);
+        }
+    };
 
     handleClick(i) {
         console.log("handleclick ",i);
@@ -24,7 +33,7 @@ class Game extends React.Component {
         const squares = current.squares.slice();
         let location = this.generateLocation(i);
         location = this.showLocation(i, location);
-        const isWinner = calculateWinner(squares,this.state.gameEnd);
+        const isWinner = calculateWinner(squares);
         this.setState({
             location
         });
@@ -57,6 +66,8 @@ class Game extends React.Component {
                location: [],
                history: []
             };
+        } else if(step === 0){
+            this.setInitialState(false);
         }
         this.setState({
             ...newState,
@@ -122,10 +133,11 @@ class Game extends React.Component {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
         const currentCell = history[history.length - 1];
-        const winnerInfo = calculateWinner(currentCell.squares,this.state.gameEnd);
+        const winnerInfo = calculateWinner(currentCell.squares);
 
         const winner = winnerInfo ? winnerInfo.winner : null;
         const winnerLine = winnerInfo ? winnerInfo.line : [];
+        const isDraw = winnerInfo && winnerInfo.draw;
         console.log("winnerInfo", winnerInfo);
         // if(winnerInfo.winner ==="Draw") {
         //     document.getElementById("move-list").write("Draw");
@@ -174,13 +186,13 @@ class Game extends React.Component {
                 <div className="game-info">
                     <div>{status}</div>
                     <div id="move-list">
-
+                        {isDraw && (<div>Is DRAW</div>)}
                         <button onClick={() => this.changeOrder()}>Change order</button>
                         {(() => {
                             return order === 0 ? <ol>{moves}</ol> : <ol>{moves.reverse()}</ol>
                         })()}
-                        <span>Move list</span>
-                        <ul>{list}</ul>
+                        <span>Move list(Row, Col)</span>
+                        <ol>{list}</ol>
                     </div>
 
 
@@ -189,9 +201,7 @@ class Game extends React.Component {
         );
     }
 }
-function calculateWinner(squares,gameStatus) {
-
-    var gameEnd = gameStatus;
+function calculateWinner(squares) {
     const lines = [
         [0, 1, 2],
         [3, 4, 5],
@@ -202,28 +212,27 @@ function calculateWinner(squares,gameStatus) {
         [0, 4, 8],
         [2, 4, 6]
     ];
+    const emptyCells = squares.filter((element) => {
+        if (element == null){
+            return true;
+        }
+        return false;
+    });
+    if(emptyCells.length === 0) {
+        return {
+            winner: null,
+            draw: true,
+            gameEnd: true,
+            line: []
+        };
+    }
     for (let i = 0; i < lines.length; i++) {
         const [a, b, c] = lines[i];
-        // console.log("gEnd", gameEnd);
-
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
             return {
                 winner: squares[a],
                 line: [a, b, c]
             };
-        }
-        else {
-            const busyCells= squares.map((element,index) =>{
-                console.log("sqrs el", element);
-                console.log("gEnd-",gameEnd);
-                if( element != null &&  gameEnd===false){
-                    console.log("Draw");
-                    return {
-                        winner: "Draw",
-                        gameEnd: true
-                    };
-                }
-            });
         }
     }
     return null;
